@@ -1,0 +1,17 @@
+[Unit]
+Description=Prometheus agent service
+After=syslog.target network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/etc/prometheus
+ExecStart=/usr/bin/node_exporter --collector.conntrack --collector.diskstats \
+      --collector.entropy --collector.filefd --collector.filesystem \
+      --collector.loadavg --collector.mdadm --collector.meminfo \
+      --collector.netdev --collector.netstat --collector.sockstat \
+      --collector.stat --collector.time --collector.uname --collector.vmstat
+RestartSec=10
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

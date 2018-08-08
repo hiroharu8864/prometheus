@@ -1,0 +1,13 @@
+[Unit]
+Description=export_proxy agent service
+After=syslog.target network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/etc/prometheus
+ExecStart=/usr/bin/exporter_proxy -config /etc/prometheus/exporter_proxy.yml
+RestartSec=10
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
