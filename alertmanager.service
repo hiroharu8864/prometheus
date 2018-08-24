@@ -1,0 +1,15 @@
+[Unit]
+Description=Alertmanager for Prometheus Service
+After=syslog.target network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/etc/prometheus
+ExecStart=/usr/bin/alertmanager --config.file=/etc/prometheus/alertmanager.yml --storage.path=/etc/prometheus/alertmanager
+ExecReload=/bin/kill -HUP $MAINPID
+TimeoutStopSec=20s
+RestartSec=10
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
